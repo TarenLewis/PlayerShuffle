@@ -12,12 +12,15 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
     }
 
-    fun showTestActivity(view: View){
-
-        val testIntent = Intent(this, TestActivity::class.java)
-
-        startActivity(testIntent)
-
+    fun showPlayGameActivity(view: View){
+        val playGameIntent = Intent(this, PlayGameActivity::class.java)
+        startActivity(playGameIntent);
     }
+
+    fun showEditTeamActivity(view: View){
+        val editTeamIntent = Intent(this, EditTeamActivity::class.java)
+        startActivity(editTeamIntent);
+    }
+
 
 }
