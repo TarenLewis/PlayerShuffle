@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">PlayerShuffle</string>
-    <string name="button1">b1</string>
-    <string name="button2">b2</string>
-    <string name="button3">b3</string>
-    <string name="startButton">start</string>
+    <string name="editTeamButton">Edit Team</string>
+    <string name="playButton">Play</string>
+    <string name="button3">extra button</string>
+    <string name="addTeamButton">Add Team</string>
+    <string name="removeTeamButton">Remove Team</string>
 
 
 </resources>

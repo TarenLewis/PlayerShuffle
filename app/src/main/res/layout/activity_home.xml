@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <!-- Top Toolbar and buttons -->
+    <!-- //////////////////////////////// -->
+    <!-- START Top Toolbar and buttons -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
@@ -17,32 +18,28 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
     <Button
-        android:id="@+id/five_minute_button"
+        android:id="@+id/editTeamButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="27dp"
-        android:text="@string/button1"
+        android:text="@string/editTeamButton"
         app:layout_constraintBottom_toBottomOf="@+id/top_toolbar"
-        app:layout_constraintEnd_toStartOf="@+id/fifteen_minute_button" />
-
+        app:layout_constraintEnd_toStartOf="@+id/playButton" />
     <Button
-        android:id="@+id/fifteen_minute_button"
+        android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginLeft="160dp"
         android:layout_marginBottom="27dp"
-        android:text="@string/button2"
+        android:text="@string/playButton"
         app:layout_constraintBottom_toBottomOf="@+id/top_toolbar"
         app:layout_constraintStart_toStartOf="@+id/top_toolbar" />
-
     <Button
-        android:id="@+id/thirty_minute_button"
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -50,23 +47,33 @@
         android:layout_marginBottom="27dp"
         android:text="@string/button3"
         app:layout_constraintBottom_toBottomOf="@+id/top_toolbar"
-        app:layout_constraintStart_toEndOf="@+id/fifteen_minute_button" />
+        app:layout_constraintStart_toEndOf="@+id/playButton" />
+    <!-- END Top Toolbar and buttons -->
+    <!-- //////////////////////////////// -->
 
+
+    <!-- //////////////////////////////// -->
+    <!-- RecyclerView list of Teams -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/team_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="vertical"
         android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/start_toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_toolbar"
         app:layout_constraintVertical_bias="0.0" />
+    <!-- END RecyclerView -->
+    <!-- //////////////////////////////// -->
 
+
+    <!-- //////////////////////////////// -->
+    <!-- START Bottom Toolbar and buttons -->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/start_toolbar"
+        android:id="@+id/bottom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="?attr/colorPrimary"
@@ -76,15 +83,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- This Button goes to the activity_team_add.xml doc, a separate activity for
+     creating a team, adding team name, members, etc. -->
     <Button
-        android:id="@+id/button12"
+        android:id="@+id/addTeamButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="showTestActivity"
-        android:text="@string/startButton"
-        app:layout_constraintBottom_toBottomOf="@+id/start_toolbar"
-        app:layout_constraintEnd_toEndOf="@+id/start_toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/start_toolbar" />
+        android:text="@string/addTeamButton"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/bottom_toolbar"
+
+        app:layout_constraintEnd_toStartOf="@+id/removeTeamButton"
+        app:layout_constraintStart_toStartOf="@id/bottom_toolbar" />
+
+    <!-- This button will create a "ghost" menu overlay which asks the user to confirm
+    that they really wish to delete the team.
+    Example: "Are you sure you want to delete team teamNameHere?" -->
+    <Button
+        android:id="@+id/removeTeamButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/removeTeamButton"
+
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/bottom_toolbar"
+        app:layout_constraintStart_toEndOf="@id/addTeamButton"
+        app:layout_constraintTop_toTopOf="@+id/bottom_toolbar"/>
+    <!-- END Bottom Toolbar and buttons -->
+    <!-- //////////////////////////////// -->
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
