@@ -53,7 +53,7 @@
         app:layout_constraintStart_toEndOf="@+id/fifteen_minute_button" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/team_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="vertical"
