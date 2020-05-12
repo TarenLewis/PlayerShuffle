@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PlayerShuffle</string>
+    <string name="button1">b1</string>
+    <string name="button2">b2</string>
+    <string name="button3">b3</string>
+    <string name="startButton">start</string>
+
+
 </resources>
