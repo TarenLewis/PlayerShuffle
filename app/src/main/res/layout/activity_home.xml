@@ -91,13 +91,13 @@
         android:id="@+id/addTeamButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="showTestActivity"
+        android:onClick="addTeamPrompt"
         android:text="@string/addTeamButton"
         app:layout_constraintBottom_toBottomOf="@+id/bottom_toolbar"
-        app:layout_constraintTop_toTopOf="@+id/bottom_toolbar"
-
         app:layout_constraintEnd_toStartOf="@+id/removeTeamButton"
-        app:layout_constraintStart_toStartOf="@id/bottom_toolbar" />
+
+        app:layout_constraintStart_toStartOf="@id/bottom_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/bottom_toolbar" />
 
     <!-- This button will create a "ghost" menu overlay which asks the user to confirm
     that they really wish to delete the team.
