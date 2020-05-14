@@ -8,14 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.add_team_prompt.view.*
-import java.io.File
 
 class HomeActivity : AppCompatActivity() {
 
@@ -26,6 +23,17 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var prefs: SharedPreferences // initialize only in "onCreate" below
     private val gson = Gson()
 
+    // Gson usage (disregard serializable in question)
+    // https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable
+    // Shared Pref
+    // https://www.journaldev.com/234/android-sharedpreferences-using-kotlin
+
+    // lateinit
+    // https://stackoverflow.com/questions/33849811/property-must-be-initialized-or-be-abstract
+
+    // Unused for now but may come up later (like when loading pictures from storage)
+    // https://developer.android.com/training/data-storage
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -33,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
         prefs = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
 
         // Check for a built team array and load it (or create new arraylist)
-        loadArray()
+        loadTeamArray()
 
         // populate the team_list with the arraylist
 
@@ -61,6 +69,8 @@ class HomeActivity : AppCompatActivity() {
 
     fun addTeamPrompt(view : View){
 
+        // https://mkyong.com/android/android-prompt-user-input-dialog-example/
+
         // Create prompt itself (maybe?)
         val li = LayoutInflater.from(this)
         val promptsView = li.inflate(R.layout.add_team_prompt, null)
@@ -83,7 +93,7 @@ class HomeActivity : AppCompatActivity() {
                 teamList.add(Team(userInput.text.toString()))
 
                 // Save to shared pref
-                saveArray()
+                saveTeamArray()
 
                 // send to new activity
                 val editTeamIntent = Intent(this, EditTeamActivity::class.java)
@@ -107,7 +117,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun saveArray(){
+    private fun saveTeamArray(){
 
         // Open the prefs editor
         val prefsEditor = prefs.edit()
@@ -120,7 +130,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun loadArray() {
+    private fun loadTeamArray() {
 
         // grab the JSON that is stored as our key
         val json = prefs.getString("teams", "")
@@ -131,9 +141,12 @@ class HomeActivity : AppCompatActivity() {
             else -> gson.fromJson(json, object : TypeToken<List<Team>>() {}.type)
         }
 
+        // reading from GSON
+        // https://stackoverflow.com/questions/22984696/storing-array-list-object-in-sharedpreferences
+
     }
 
-    fun spTest(){
+    private fun spTest(){
 
         /* A test to clear the list,
             Add a few teams
@@ -143,17 +156,19 @@ class HomeActivity : AppCompatActivity() {
             Display the last team added somewhere on the page
          */
 
+        teamList = ArrayList()
+
         teamList.clear()
 
         teamList.add(Team("doggos"))
         teamList.add(Team("kittycats"))
         teamList.add(Team("littleponies"))
 
-        saveArray()
+        saveTeamArray()
 
         teamList.clear()
 
-        loadArray()
+        loadTeamArray()
 
         button3.text = teamList[teamList.size - 1].tName
 
@@ -163,14 +178,11 @@ class HomeActivity : AppCompatActivity() {
 
 /*  References
 
-        // Shared Pref
-        https://www.journaldev.com/234/android-sharedpreferences-using-kotlin
 
-        // lateinit
-        https://stackoverflow.com/questions/33849811/property-must-be-initialized-or-be-abstract
 
-        // Unused for now but may come up later:
-        https://developer.android.com/training/data-storage
+
+
+
 
 
 

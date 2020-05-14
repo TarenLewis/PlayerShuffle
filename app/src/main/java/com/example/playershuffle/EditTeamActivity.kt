@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_edit_team.*
@@ -25,7 +24,7 @@ class EditTeamActivity : AppCompatActivity() {
 
         prefs = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
 
-        loadArray()
+        loadTeamArray()
 
         // Receive selected team
         val selectedTeam = intent.getIntExtra("selectedTeam", -1)
@@ -48,14 +47,7 @@ class EditTeamActivity : AppCompatActivity() {
 
     }
 
-
-
-
-
-
-
-
-    fun saveArray(){
+    private fun saveTeamArray(){
 
         // Open the prefs editor
         val prefsEditor = prefs.edit()
@@ -68,7 +60,7 @@ class EditTeamActivity : AppCompatActivity() {
 
     }
 
-    fun loadArray() {
+    private fun loadTeamArray() {
 
         // grab the JSON that is stored as our key
         val json = prefs.getString("teams", "")
