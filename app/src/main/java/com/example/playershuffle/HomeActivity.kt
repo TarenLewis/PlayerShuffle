@@ -98,10 +98,6 @@ class HomeActivity : AppCompatActivity() {
             // Your holder should contain and initialize a member variable
             // for any view that will be set as you render a row
             val nameTextView = itemView.findViewById<TextView>(R.id.team_name)
-            val selectedItem = 0
-
-            // button not used
-            // val messageButton = itemView.findViewById<Button>(R.id.message_button)
         }
 
         // ... constructor and member variables
@@ -124,6 +120,7 @@ class HomeActivity : AppCompatActivity() {
             textView.text = team.tName
 
             //This listens for user click on View, changes to color gray when selected
+            //Should be moved outside onBindViewHolder at some point
             textView.setOnClickListener{
                 viewHolder.nameTextView.setBackgroundColor(Color.parseColor("#bababa"))
             }
