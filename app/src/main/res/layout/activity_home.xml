@@ -57,7 +57,7 @@
     <!-- //////////////////////////////// -->
     <!-- RecyclerView list of Teams -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/team_list"
+        android:id="@+id/rvTeams"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="vertical"

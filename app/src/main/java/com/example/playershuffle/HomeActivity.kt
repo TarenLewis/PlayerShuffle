@@ -8,7 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_home.*
@@ -19,12 +24,17 @@ class HomeActivity : AppCompatActivity() {
     // Declaration
     private lateinit var teamList : ArrayList<Team>
 
+    lateinit var tList: ArrayList<Team>
+
+
+
     // These two lines need to be in all activities which access the shared prefs
     private lateinit var prefs: SharedPreferences // initialize only in "onCreate" below
     private val gson = Gson()
 
     // Gson usage (disregard serializable in question)
     // https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable
+
     // Shared Pref
     // https://www.journaldev.com/234/android-sharedpreferences-using-kotlin
 
@@ -33,6 +43,9 @@ class HomeActivity : AppCompatActivity() {
 
     // Unused for now but may come up later (like when loading pictures from storage)
     // https://developer.android.com/training/data-storage
+
+    // RecyclcerView
+    // https://guides.codepath.com/android/using-the-recyclerview#binding-the-adapter-to-the-recyclerview
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +56,76 @@ class HomeActivity : AppCompatActivity() {
         // Check for a built team array and load it (or create new arraylist)
         loadTeamArray()
 
+        // ...
+        // Lookup the recyclerview in activity layout
+        val rvTeams = findViewById<View>(R.id.rvTeams) as RecyclerView
+
+
+
+
+
+        // Initialize contacts
+        tList = Team.createTeamsList(20)
+        // Create adapter passing in the sample user data
+        val adapter = TeamAdapter(teamList)
+        // Attach the adapter to the recyclerview to populate items
+        rvTeams.adapter = adapter
+        // Set layout manager to position the items
+        rvTeams.layoutManager = LinearLayoutManager(this)
+
         // populate the team_list with the arraylist
 
         // Default selection as item 0
 
     }
+
+    class TeamAdapter (private val listTeams: ArrayList<Team>) : RecyclerView.Adapter<TeamAdapter.ViewHolder>()
+    {
+        //https://guides.codepath.com/android/using-the-recyclerview#binding-the-adapter-to-the-recyclerview
+
+        // Provide a direct reference to each of the views within a data item
+        // Used to cache the views within the item layout for fast access
+        inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
+            // Your holder should contain and initialize a member variable
+            // for any view that will be set as you render a row
+            val nameTextView = itemView.findViewById<TextView>(R.id.team_name)
+
+
+            // button not used
+            // val messageButton = itemView.findViewById<Button>(R.id.message_button)
+        }
+
+        // ... constructor and member variables
+        // Usually involves inflating a layout from XML and returning the holder
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamAdapter.ViewHolder {
+            val context = parent.context
+            val inflater = LayoutInflater.from(context)
+            // Inflate the custom layout
+            val contactView = inflater.inflate(R.layout.team_layout_home, parent, false)
+            // Return a new holder instance
+            return ViewHolder(contactView)
+        }
+
+        // Involves populating data into the item through holder
+        override fun onBindViewHolder(viewHolder: TeamAdapter.ViewHolder, position: Int) {
+            // Get the data model based on position
+            val team: Team = listTeams.get(position)
+            // Set item views based on your views and data model
+            val textView = viewHolder.nameTextView
+            textView.setText(team.tName)
+
+
+            /*val button = viewHolder.messageButton
+            button.text = if (team.isOnline) "Message" else "Offline"
+            button.isEnabled = team.isOnline*/
+        }
+
+        // Returns the total count of items in the list
+        override fun getItemCount(): Int {
+            return listTeams.size
+        }
+    }
+
 
     fun showPlayGameActivity(view: View){
         val playGameIntent = Intent(this, PlayGameActivity::class.java)
@@ -91,6 +169,7 @@ class HomeActivity : AppCompatActivity() {
 
                 // Create new team with provided name, add to list
                 teamList.add(Team(userInput.text.toString()))
+
 
                 // Save to shared pref
                 saveTeamArray()

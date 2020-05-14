@@ -15,4 +15,16 @@ class Team constructor(teamName : String) {
 
     }
 
+
+    //https://guides.codepath.com/android/using-the-recyclerview#binding-the-adapter-to-the-recyclerview
+    companion object {
+        private var lastContactId = 0
+        fun createTeamsList(numContacts: Int): ArrayList<Team> {
+            val team = ArrayList<Team>()
+            for (i in 1..numContacts) {
+                team.add(Team("Person " + ++lastContactId))
+            }
+            return team
+        }
+    }
 }

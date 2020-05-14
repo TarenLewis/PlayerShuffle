@@ -5,6 +5,7 @@
     <string name="button3">extra button</string>
     <string name="addTeamButton">Add Team</string>
     <string name="removeTeamButton">Remove Team</string>
+    <string name="teamEditor">Team Editor</string>
 
 
 </resources>
