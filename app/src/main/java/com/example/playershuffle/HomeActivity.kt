@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +19,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.add_team_prompt.view.*
+import com.google.android.material.card.MaterialCardView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.res.ResourcesCompat.getColor
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -81,6 +88,8 @@ class HomeActivity : AppCompatActivity() {
 
     class TeamAdapter (private val listTeams: ArrayList<Team>) : RecyclerView.Adapter<TeamAdapter.ViewHolder>()
     {
+
+
         //https://guides.codepath.com/android/using-the-recyclerview#binding-the-adapter-to-the-recyclerview
 
         // Provide a direct reference to each of the views within a data item
@@ -89,7 +98,7 @@ class HomeActivity : AppCompatActivity() {
             // Your holder should contain and initialize a member variable
             // for any view that will be set as you render a row
             val nameTextView = itemView.findViewById<TextView>(R.id.team_name)
-
+            val selectedItem = 0
 
             // button not used
             // val messageButton = itemView.findViewById<Button>(R.id.message_button)
@@ -101,23 +110,23 @@ class HomeActivity : AppCompatActivity() {
             val context = parent.context
             val inflater = LayoutInflater.from(context)
             // Inflate the custom layout
-            val contactView = inflater.inflate(R.layout.team_layout_home, parent, false)
+            val teamView = inflater.inflate(R.layout.team_layout_home, parent, false)
             // Return a new holder instance
-            return ViewHolder(contactView)
+            return ViewHolder(teamView)
         }
 
         // Involves populating data into the item through holder
         override fun onBindViewHolder(viewHolder: TeamAdapter.ViewHolder, position: Int) {
             // Get the data model based on position
-            val team: Team = listTeams.get(position)
+            val team: Team = listTeams[position]
             // Set item views based on your views and data model
             val textView = viewHolder.nameTextView
-            textView.setText(team.tName)
+            textView.text = team.tName
 
-
-            /*val button = viewHolder.messageButton
-            button.text = if (team.isOnline) "Message" else "Offline"
-            button.isEnabled = team.isOnline*/
+            //This listens for user click on View, changes to color gray when selected
+            textView.setOnClickListener{
+                viewHolder.nameTextView.setBackgroundColor(Color.parseColor("#bababa"))
+            }
         }
 
         // Returns the total count of items in the list
