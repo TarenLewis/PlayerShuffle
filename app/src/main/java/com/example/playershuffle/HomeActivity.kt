@@ -54,6 +54,9 @@ open class HomeActivity : AppCompatActivity() {
     // RecyclcerView
     // https://guides.codepath.com/android/using-the-recyclerview#binding-the-adapter-to-the-recyclerview
 
+    // startActivityForResult (going to edit Team and back to Home)
+    // https://stackoverflow.com/questions/8240934/android-refresh-activity-when-returns-to-it
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
