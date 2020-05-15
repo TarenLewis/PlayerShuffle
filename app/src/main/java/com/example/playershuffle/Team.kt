@@ -15,7 +15,7 @@ class Team constructor(teamName : String) {
 
     }
 
-
+//This function / companion object is unnecessary, it was being used for testing purposes.
     //https://guides.codepath.com/android/using-the-recyclerview#binding-the-adapter-to-the-recyclerview
     companion object {
         private var lastContactId = 0
