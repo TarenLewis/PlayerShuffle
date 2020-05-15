@@ -26,7 +26,7 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat.getColor
 
 
-class HomeActivity : AppCompatActivity() {
+open class HomeActivity : AppCompatActivity() {
 
     // Declaration
     private lateinit var teamList : ArrayList<Team>
@@ -148,7 +148,8 @@ class HomeActivity : AppCompatActivity() {
         // Pass selected team as value
         editTeamIntent.putExtra("selectedTeam", 0)
 
-        startActivity(editTeamIntent);
+        // "forResult" here triggers this activity to expect a response from new activity
+        startActivityForResult(editTeamIntent, 1);
     }
 
     fun addTeamPrompt(view : View){
@@ -187,7 +188,8 @@ class HomeActivity : AppCompatActivity() {
                 editTeamIntent.putExtra("selectedTeam", teamList.size-1)
 
                 // Start team edit activity
-                startActivity(editTeamIntent);
+                // "forResult" here triggers this activity to expect a response from new activity
+                startActivityForResult(editTeamIntent, 1);
 
             })
 
@@ -201,6 +203,18 @@ class HomeActivity : AppCompatActivity() {
         alertDialog.show()
 
     }
+
+    // interpret response from calling activity
+    // Simply refreshes the current activity (which should refresh the team list)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK){
+            val refresh = Intent(this, HomeActivity::class.java)
+            startActivity(refresh)
+            this.finish()
+        }
+    }
+
 
     private fun saveTeamArray(){
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_edit_team.*
@@ -41,9 +42,54 @@ class EditTeamActivity : AppCompatActivity() {
             team = teamList[selectedTeam]
 
             // Just a test which displays team name
-            teamEditorText.text = team.tName
+            teamName.text = team.tName
 
         }
+
+    }
+
+    fun toggleActiveClick(view : View){
+
+        // toggle highlighted user as active / not active
+
+    }
+
+    fun addPlayerClick(view : View){
+
+        // launch new player activity
+        // may need forResult here, not sure yet. Will test later
+
+        // For testing for now, just add a prompt to add a name (like new team prompt)
+
+    }
+
+    fun deletePlayerClick(view : View){
+
+        // prompt user to see if they want to delete highlighted player
+
+        // if user confirmed
+            // delete player
+
+        // if user declined
+            //do nothing
+
+
+    }
+
+
+    fun deleteTeamClick(view : View){
+
+        // prompt user to see if they really want to delete the team
+
+        // if user confirmed
+            // delete team from arraylist
+            // save team array
+            // return user to home activity
+                setResult(RESULT_OK, null)
+                finish()
+
+        // else user declined
+            // do nothing
 
     }
 
