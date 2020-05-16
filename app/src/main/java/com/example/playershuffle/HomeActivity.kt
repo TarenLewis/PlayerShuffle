@@ -84,7 +84,9 @@ open class HomeActivity : AppCompatActivity() {
 
     class TeamAdapter (private val listTeams: ArrayList<Team>) : RecyclerView.Adapter<TeamAdapter.ViewHolder>()
     {
-
+        // This variable keeps track of the previous position of the team selected by the user.
+        // It is used to store last position selected, to set the color white again when the user
+        //selects a different team in the list. This lets the user know which team is currently selected.
         companion object {
             var last_position = 0
         }
@@ -120,10 +122,12 @@ open class HomeActivity : AppCompatActivity() {
 
             val textViewContext = textView.context
 
+
             //This listens for user click on View, changes to color gray when selected
             // But it needs to be fixed because it only works for one selection, then stays gray after that
             //Should be moved outside onBindViewHolder at some point
             textView.setOnClickListener{
+                //https://stackoverflow.com/questions/40692214/changing-background-color-of-selected-item-in-recyclerview
                 textView.setBackgroundColor(Color.parseColor("#bababa"))
                 notifyItemChanged(last_position)
                 last_position = position
