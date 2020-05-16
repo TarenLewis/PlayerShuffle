@@ -6,6 +6,8 @@
     <string name="addTeamButton">Add Team</string>
     <string name="removeTeamButton">Remove Team</string>
     <string name="teamEditor">Team Editor</string>
+    <string name="editTeam">Edit Team</string>
+    <string name="deleteTeam">Delete Team</string>
 
 
 </resources>

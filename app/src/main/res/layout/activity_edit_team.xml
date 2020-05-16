@@ -13,97 +13,115 @@
         android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
-        android:id="@+id/toolbarTextView"
+        android:id="@+id/edit_team_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:maxLines="1"
-        android:text="Edit Team"
+        android:text="@string/editTeam"
 
         android:textAppearance="@android:style/TextAppearance.WindowTitle"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/top_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/top_toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/top_toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/top_toolbar"
+
+        />
 
     <TextView
         android:id="@+id/teamName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingTop="@dimen/padding_large"
+        android:paddingBottom="@dimen/padding_large"
         android:text="Team Name"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.168" />
+        app:layout_constraintTop_toBottomOf="@id/top_toolbar"
+        />
 
     <TextView
         android:id="@+id/teamList"
-        android:layout_width="243dp"
-        android:layout_height="168dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:gravity="start|top"
-        android:lines="4"
+        android:gravity="fill_horizontal"
         android:text="Placeholder for list"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamName" />
+        app:layout_constraintTop_toBottomOf="@id/teamName"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_toolbar" />
 
-    <Button
-        android:id="@+id/newPlayer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="100dp"
-        android:onClick="addPlayerClick"
-        android:text="Add Player"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamList" />
-
-    <Button
-        android:id="@+id/deletePlayer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:onClick="deletePlayerClick"
-        android:text="Delete Player"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamList" />
 
     <Button
         android:id="@+id/deleteTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginTop="620dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
         android:onClick="deleteTeamClick"
         android:text="Delete\nTeam"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/bottom_toolbar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/bottom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
+
+    <Button
+        android:id="@+id/addPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:onClick="addPlayerClick"
+        android:text="Add Player"
+
+        app:layout_constraintEnd_toStartOf="@+id/activeToggle"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintBottom_toBottomOf="@id/bottom_toolbar"
+        app:layout_constraintTop_toTopOf="@id/bottom_toolbar"
+
+       />
 
     <Button
         android:id="@+id/activeToggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:onClick="toggleActiveClick"
         android:text="Active\nToggle"
+
+
+        app:layout_constraintStart_toEndOf="@id/addPlayer"
+        app:layout_constraintEnd_toStartOf="@id/deletePlayer"
+
+        app:layout_constraintBottom_toBottomOf="@id/bottom_toolbar"
+        app:layout_constraintTop_toTopOf="@id/bottom_toolbar" />
+
+    <Button
+        android:id="@+id/deletePlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:onClick="deletePlayerClick"
+        android:text="Delete Player"
+
+
+        app:layout_constraintStart_toEndOf="@id/activeToggle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamList" />
+
+        app:layout_constraintBottom_toBottomOf="@id/bottom_toolbar"
+        app:layout_constraintTop_toTopOf="@id/bottom_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
