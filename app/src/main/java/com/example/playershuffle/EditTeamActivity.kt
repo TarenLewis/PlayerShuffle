@@ -41,7 +41,7 @@ class EditTeamActivity : AppCompatActivity() {
             // Set our team to show
             team = teamList[selectedTeam]
 
-            // Just a test which displays team name
+            // Just a test which displays team name to the "teamName" view
             teamName.text = team.tName
 
         }

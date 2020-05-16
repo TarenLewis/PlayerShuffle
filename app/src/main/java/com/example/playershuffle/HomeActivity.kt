@@ -5,25 +5,39 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.add_team_prompt.view.*
-import com.google.android.material.card.MaterialCardView
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getColor
-import androidx.core.content.res.ResourcesCompat.getColor
+
+
+// Gson usage (disregard serializable in question)
+// https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable
+
+// Shared Pref
+// https://www.journaldev.com/234/android-sharedpreferences-using-kotlin
+
+// lateinit
+// https://stackoverflow.com/questions/33849811/property-must-be-initialized-or-be-abstract
+
+// Unused for now but may come up later (like when loading pictures from storage)
+// https://developer.android.com/training/data-storage
+
+// RecyclcerView
+// https://guides.codepath.com/android/using-the-recyclerview#binding-the-adapter-to-the-recyclerview
+
+// startActivityForResult (going to edit Team and back to Home)
+// https://stackoverflow.com/questions/8240934/android-refresh-activity-when-returns-to-it
 
 
 open class HomeActivity : AppCompatActivity() {
@@ -33,29 +47,10 @@ open class HomeActivity : AppCompatActivity() {
 
     lateinit var tList: ArrayList<Team>
 
-
-
     // These two lines need to be in all activities which access the shared prefs
     private lateinit var prefs: SharedPreferences // initialize only in "onCreate" below
     private val gson = Gson()
 
-    // Gson usage (disregard serializable in question)
-    // https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable
-
-    // Shared Pref
-    // https://www.journaldev.com/234/android-sharedpreferences-using-kotlin
-
-    // lateinit
-    // https://stackoverflow.com/questions/33849811/property-must-be-initialized-or-be-abstract
-
-    // Unused for now but may come up later (like when loading pictures from storage)
-    // https://developer.android.com/training/data-storage
-
-    // RecyclcerView
-    // https://guides.codepath.com/android/using-the-recyclerview#binding-the-adapter-to-the-recyclerview
-
-    // startActivityForResult (going to edit Team and back to Home)
-    // https://stackoverflow.com/questions/8240934/android-refresh-activity-when-returns-to-it
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,8 +69,6 @@ open class HomeActivity : AppCompatActivity() {
 
 
 
-        // Initialize contacts
-        tList = Team.createTeamsList(20)
         // Create adapter passing in the sample user data
         val adapter = TeamAdapter(teamList)
         // Attach the adapter to the recyclerview to populate items
@@ -92,6 +85,9 @@ open class HomeActivity : AppCompatActivity() {
     class TeamAdapter (private val listTeams: ArrayList<Team>) : RecyclerView.Adapter<TeamAdapter.ViewHolder>()
     {
 
+        companion object {
+            var last_position = 0
+        }
 
         //https://guides.codepath.com/android/using-the-recyclerview#binding-the-adapter-to-the-recyclerview
 
@@ -122,11 +118,23 @@ open class HomeActivity : AppCompatActivity() {
             val textView = viewHolder.nameTextView
             textView.text = team.tName
 
+            val textViewContext = textView.context
+
             //This listens for user click on View, changes to color gray when selected
+            // But it needs to be fixed because it only works for one selection, then stays gray after that
             //Should be moved outside onBindViewHolder at some point
             textView.setOnClickListener{
-                viewHolder.nameTextView.setBackgroundColor(Color.parseColor("#bababa"))
+                textView.setBackgroundColor(Color.parseColor("#bababa"))
+                notifyItemChanged(last_position)
+                last_position = position
+
+                //trying to test the position but this breaks it, dont uncomment this its just here for testing
+                //Toast.makeText(textViewContext, position,Toast.LENGTH_SHORT).show()
             }
+
+            //resets previous click to default white
+            textView.setBackgroundColor(Color.parseColor("#fafafa"))
+
         }
 
         // Returns the total count of items in the list
